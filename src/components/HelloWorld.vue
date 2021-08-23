@@ -38,13 +38,15 @@
 
     <div class="image-grid">
       <div id="gallery" class="gallery">
-        <div class="gallery-panel"
+        <div class="gallery-panel" @click="showDynamicComponentModal(photo)" 
             v-for="photo in images"
             :key="photo.id">
           <img :src="photo.path">
         </div>
       </div>
     </div>
+
+    <demo-adaptive-modal />
 
     <div id="footer" class="footer">
       <div class="footer-logo">
@@ -72,6 +74,7 @@
 
 <script>
 import { VueperSlides, VueperSlide } from 'vueperslides'
+import DemoCustomComponent from './adaptive.vue'
 
 import 'vueperslides/dist/vueperslides.css'
 
@@ -79,15 +82,11 @@ export default {
   components: { VueperSlides, VueperSlide },
   name: 'HelloWorld',
   methods: {
-    show () {
-            this.$modal.show('modal');
-        },
-        hide () {
-            this.$modal.hide('modal');
-        }, 
-        mount () {
-        this.show()
-    }
+    showDynamicComponentModal(photo) {
+      this.$modal.show(DemoCustomComponent, {
+        photoObj: photo,
+      })
+    },
   },
   props: {
     msg: String
